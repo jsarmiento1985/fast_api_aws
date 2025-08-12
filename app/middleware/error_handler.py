@@ -25,6 +25,7 @@ async def manejar_excepciones(request: Request, call_next):
             content={
                 "error": True,
                 "mensaje": he.detail,
+                "detalle": None,
                 "valor": None
             }
         )
@@ -34,6 +35,7 @@ async def manejar_excepciones(request: Request, call_next):
             content={
                 "error": True,
                 "mensaje": f"Error de base de datos: {str(se)}",
+                "detalle": None,
                 "valor": None
             }
         )
@@ -43,6 +45,7 @@ async def manejar_excepciones(request: Request, call_next):
             content={
                 "error": True,
                 "mensaje": f"Error inesperado: {str(e)}",
+                "detalle": None,
                 "valor": None
             }
         )

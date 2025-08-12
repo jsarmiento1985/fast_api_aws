@@ -8,6 +8,7 @@ from sqlalchemy.future import select
 from app.schemas.producto import Producto
 
 
+
 router = APIRouter(prefix="/gestion", tags=["Productos"])
 
 products = [
@@ -117,3 +118,25 @@ async def crear_producto(producto: Producto, db: AsyncSession = Depends(get_db))
             "STOCK": nuevo_producto.stock,
         },
     }
+
+@router.get("/obtener_cod_producto")
+async def obtener_producto(
+    codigo: int = Query(..., description="Código del producto"),
+    db: AsyncSession = Depends(get_db)
+):
+    stmt = select(Product).where(Product.codigo == codigo)
+    result = await db.execute(stmt)
+    producto = result.scalar_one_or_none()
+
+    if not producto:#para errores 401 o 404 como no encontrado o consulta no encontro valores
+        raise HTTPException(status_code=404, detail={
+        "error": True,
+        "mensaje": "Producto no encontrado",
+        "detalle": None,
+        "valor": None
+    })
+
+    return producto
+
+
+  

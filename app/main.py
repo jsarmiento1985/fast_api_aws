@@ -3,6 +3,7 @@ from fastapi import Depends
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from app.routers.product import router as product_router
+from app.routers.endpoint import router as endpoint_router
 from app.middleware.error_handler import manejar_excepciones
 from sqlalchemy import text
 from .db import get_db
@@ -10,15 +11,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
-    title="Sigris (Rest API)",
-    description="Servicios REST API de Salud Familiar IPS",
-    summary="Salud Familiar IPS",
+    title="JSSP (Rest API)",
+    description="Servicios REST API de JSSP project",
+    summary="JSSPproject",
     version="0.0.3",
     terms_of_service="#",
     contact={
-        "name": "Salud Familiar IPS",
-        "url": "https://www.saludfamiliar.com.co/",
-        "email": "contacto@saludfamiliar.com.co",
+        "name": "JSSP projects",
+        "url": "https://www.jsspproject.com.co/",
+        "email": "contacto@sjsspproyect.com.co",
     },
 )
 
@@ -66,3 +67,4 @@ async def root(db: AsyncSession = Depends(get_db)):
 
 prefijo = "/api/v1"
 app.include_router(product_router, prefix=prefijo)
+app.include_router(endpoint_router, prefix=prefijo)

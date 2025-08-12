@@ -8,7 +8,7 @@ class Product(Base):
     __table_args__ = {"schema": "desa"}
 
     id = Column(Integer, primary_key=True, index=True)
-    codigo = Column(Integer, nullable=False)
+    codigo = Column(Integer, unique=True, index=True, nullable=False)
     name = Column(String(255), nullable=False)
     price = Column(Numeric(10, 2), nullable=False)
     stock = Column(Integer, nullable=False)
