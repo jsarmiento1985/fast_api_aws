@@ -7,7 +7,7 @@ import httpx
 router = APIRouter(prefix="/api", tags=["Api Tercero"])
 
 @router.post("/call_api")
-async def call_api(item: Enpoint, db: AsyncSession = Depends(get_db)):
+async def call_api(item: Enpoint):
     codigo = item.CODIGO
 
     # URL de la API externa de prueba
